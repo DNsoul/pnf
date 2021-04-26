@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AviasalesService, { Ticket } from "../services/aviasales-services"
-import { TicketForm } from "./ticket-form";
+import { TicketForm } from "./ticket-form"; 
 import { SearchPanel } from "./search-panel";
 import { FilterPanel } from "./filter-panel";
 
 import "./style.scss";
 
 import logo from "./logo.png"
+import { Spiner } from "./spiner";
 
 
 
@@ -58,9 +59,14 @@ export const App: React.FC = () => {
     const [search, setSearch] = useState<SearchFunc>(() => searchCheap)
     const [listChecked, setListChecked] = useState<boolean[]>([true, true, true, true])
     const [page, setPage] = useState(1)
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect( () => {
+        setLoading(data.length === 0)
+    }, [data])
 
     useEffect(() => {
-       API.getId().then(
+        API.getId().then(
             (res) => {setId(res.searchId)}
         ).catch(
             (err) => console.log(err)
@@ -88,7 +94,10 @@ export const App: React.FC = () => {
                     {
                         data.filter(filterTransfer).sort(search).slice(0,5 * page).map( (t,idx) => <TicketForm key={idx} ticket={t}/> )
                     }
-                    <button onClick={() => setPage(prev => prev+1)} className="next-button">Показать еще 5 билетов</button>
+                    {
+                        loading ? <Spiner/> :
+                        <button onClick={() => setPage(prev => prev+1)} className="next-button">Показать еще 5 билетов</button>
+                    }
                 </div>
             </div>
         </div>

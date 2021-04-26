@@ -12,15 +12,43 @@ body {
     align-items: center;
     display: flex;
     flex-direction: column;
+    width: 100vw;
 }
 
 .img {
     margin: 35px;
 }
 
+.left {
+    @media (max-width: 790px) {
+        width: 524px;
+    }
+
+    @media (max-width: 550px) {
+        width: 100%;
+    }
+}
+
+.right {
+
+    @media (max-width: 790px) {
+        width: 524px;
+    }
+
+    @media (max-width: 550px) {
+        width: 100%;
+    }
+}
+
 .content {
     display: flex;
     justify-content: center;
+    width: 100%;
+
+    @media (max-width: 790px) {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .search-panel {
@@ -45,14 +73,26 @@ body {
         text-transform: uppercase;
 
         cursor: pointer;
+
+        @media (max-width: 550px) {
+            width: 100%;
+        }
         
 
         &:first-child {
             border-radius: 5px 0 0 5px;
+
+            @media (max-width: 550px) {
+                border-radius: 5px 5px 0 0;
+            }
         }
 
         &:last-child {
             border-radius: 0 5px 5px 0;
+
+            @media (max-width: 550px) {
+                border-radius: 0 0 5px 5px;
+            }
         }
 
         &:hover {
@@ -68,8 +108,6 @@ body {
 }
 
 .ticket-form {
-    width: 502px;
-    height: 184px;
     background: #FFFFFF;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
@@ -78,10 +116,30 @@ body {
     cursor: pointer;
     margin: 10px;
 
+    @media (max-width: 425px) {
+        width: auto;
+        height: fit-content;
+    }
+
+    &__content {
+        margin-bottom: 10px;
+
+        @media (max-width: 425px) {
+            display: flex;
+            text-align: center;
+            justify-content: center;
+        }
+    }
+
     & .line {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        @media (max-width: 425px) {
+            flex-direction: column;
+            height: 100%;
+        }
     }
 
     & .line:first-child {
@@ -90,6 +148,9 @@ body {
 
     & .line:nth-child(2) {
         margin-bottom: 10px;
+        @media (max-width: 425px) {
+            margin-bottom: 0;
+        }
     }
 
     &__price {
@@ -133,6 +194,10 @@ body {
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     margin: 10px;
+
+    @media (max-width: 790px) {
+        width: auto;
+    }
 
     &__title {
         height: 12px;
@@ -202,7 +267,8 @@ body {
 
 .next-button {
     height: 50px;
-    width: 502px;
+    width: -webkit-fill-available;
+    display: block;
     margin: 10px;
     background: #2196F3;
     border-radius: 5px;
@@ -214,3 +280,55 @@ body {
     color: #FFFFFF;
 }
 
+@keyframes ldio {
+    0% {
+        top: 60px;
+        left: 60px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        top: 0px;
+        left: 0px;
+        width: 120px;
+        height: 120px;
+        opacity: 0;
+    }
+}
+
+.spinner {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.ldio {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+
+    & div { 
+        box-sizing: content-box;
+        position: absolute;
+        border-width: 40px;
+        border-style: solid;
+        opacity: 1;
+        border-radius: 50%;
+        animation: ldio 1s cubic-bezier(0,0.2,0.8,1) infinite;
+
+        &:nth-child(1) {
+            border-color: #e90c59;
+            animation-delay: 0s;
+        }
+        
+        &:nth-child(2) {
+        border-color: #2196f3;
+        animation-delay: -0.5s;
+        }
+    }
+}

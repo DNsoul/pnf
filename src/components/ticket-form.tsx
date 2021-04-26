@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Ticket } from "../services/aviasales-services"
 
 type TicketFormProps = {
@@ -46,6 +46,7 @@ export const TicketForm = (props:TicketFormProps) => {
             <span className="ticket-form__price">{ticket.price.toLocaleString("RU")} Р</span>
             <img className="ticket-form__img" src={`//pics.avs.io/99/36/${ticket.carrier}.png`} alt="carrier"/>
         </div>
+        <div className="ticket-form__content">
         {
             ticket.segments.map( (segm,idx) => (
                 <div key={idx} className="line">
@@ -64,6 +65,7 @@ export const TicketForm = (props:TicketFormProps) => {
                 </div>
             ))
         }
+        </div>
     </div>
     )
 }
